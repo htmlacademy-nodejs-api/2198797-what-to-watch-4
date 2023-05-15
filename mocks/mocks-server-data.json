@@ -1,0 +1,101 @@
+{
+    "api": {
+      "names": [
+        "What We Do in the Shadows",
+        "Legend",
+        "Dardjeeling Limited",
+        "No Country for Old Men",
+        "Gangs of new york",
+        "Once Upon a Time in America",
+        "Matrix",
+        "Bohemian Rhapsody"
+      ],
+      "descriptions": [
+        "A look into the daily (or rather, nightly) lives of three vampires who've lived together for over 100 years, in Staten Island.",
+        "Identical twin gangsters Ronald and Reginald Kray terrorize London during the 1960s.",
+        "A year after their father's funeral, three brothers travel across India by train in an attempt to bond with each other.",
+        "Violence and mayhem ensue after a hunter stumbles upon a drug deal gone wrong and more than two million dollars in cash near the Rio Grande.",
+        "In 1862, Amsterdam Vallon returns to the Five Points area of New York City seeking revenge against Bill the Butcher, his father's killer.",
+        "A former Prohibition-era Jewish gangster returns to the Lower East Side of Manhattan over thirty years later, where he once again must confront the ghosts and regrets of his old life.",
+        "A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers."
+      ],
+      "genres": [
+        "Comedy",
+        "Crime",
+        "Adventure",
+        "Action",
+        "Drama"
+      ],
+      "previewVideoLinks": [
+        "https://12.react.pages.academy/static/film/video/dog.mp4",
+        "https://12.react.pages.academy/static/film/video/traffic.mp4"
+      ],
+      "videoLinks": [
+        "https://12.react.pages.academy/static/film/video/bubbles.mp4'",
+        "https://12.react.pages.academy/static/film/video/matrix.mp4"
+      ],
+      "actors": [
+        "Kayvan Novak",
+        "Matt Berry",
+        "Natasia Demetriou",
+        "Tom Hardy",
+        "Emily Browning",
+        "Taron Egerton",
+        "Owen Wilson",
+        "Adrien Brody",
+        "Jason Schwartzman",
+        "Robert De Niro",
+        "James Woods",
+        "Elizabeth McGovern"
+      ],
+      "directors": [
+        "Jemaine Clement",
+        "Brian Helgeland",
+        "Bryan Singer",
+        "Wes Anderson",
+        "Ethan Coen",
+        "Martin Scorsese",
+        "Sergio Leone",
+        "Wachowski Brothers"
+      ],
+      "firstNames":[
+        "Rami",
+        "Lucy",
+        "Gwilym",
+        "Keanu"
+
+      ],
+      "lastNames":[
+        "Malek",
+        "Boynton",
+        "Lee",
+        "Reeves"
+      ],
+      "emails":[
+        "rami@gmail.com",
+        "lucy@gmail.com",
+        "gwilym@gmail.com",
+        "keanu@gmail.com"
+      ],
+      "posterImages":[
+        "https://12.react.pages.academy/static/film/poster/What-We-Do-in-the-Shadows.jpg",
+        "https://12.react.pages.academy/static/film/poster/Legend.jpg",
+        "https://12.react.pages.academy/static/film/poster/Dardjeeling_Limited.jpg",
+        "https://12.react.pages.academy/static/film/poster/No_Country_for_Old_Men.jpg",
+        "https://12.react.pages.academy/static/film/poster/Gangs_of_New_York_Poster.jpg",
+        "https://12.react.pages.academy/static/film/poster/Once_Upon_a_Time_in_America.jpg",
+        "https://12.react.pages.academy/static/film/poster/matrix.jpg",
+        "https://12.react.pages.academy/static/film/poster/Bohemian_Rhapsody.jpg"
+      ],
+      "backgroundImages":[
+        "https://12.react.pages.academy/static/film/background/What-We-Do-in-the-Shadows.jpg",
+        "https://12.react.pages.academy/static/film/background/legend.jpg",
+        "https://12.react.pages.academy/static/film/background/Dardjeeling_Limited.jpg",
+        "https://12.react.pages.academy/static/film/background/No_Country_for_Old_Men.jpg",
+        "https://12.react.pages.academy/static/film/background/gangs_of_new_york.jpg",
+        "https://12.react.pages.academy/static/film/background/ones_upon_a_time_in_america.jpg",
+        "https://12.react.pages.academy/static/film/background/matrix.jpg",
+        "https://12.react.pages.academy/static/film/background/Bohemian_Rhapsody.jpg"
+      ]
+    }
+  }
