@@ -12,8 +12,8 @@ export type Movie = {
     starring: string[];
     director: string;
     runTime: number;
-    user: User;
     posterImage: string;
     backgroundImage: string;
     backgroundColor: number;
+    user: User;
 }
