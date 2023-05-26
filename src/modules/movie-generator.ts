@@ -20,7 +20,7 @@ export default class MovieGenerator implements MovieGeneratorInterface{
     const email = getRandomItem<string>(this.mockData.emails);
     const posterImage = getRandomItem<string>(this.mockData.posterImages);
     const backgroundImage = getRandomItem<string>(this.mockData.backgroundImages);
-    const premiereDate = dayjs().format('DD-MM-YYYY');
+    const premiereDate = dayjs().format('YYYY, MM, DD');
     const released = generateRandomValue(1900, 2023);
     const rating = generateRandomValue (1, 10, 1);
     const runTime = generateRandomValue(10, 240);
