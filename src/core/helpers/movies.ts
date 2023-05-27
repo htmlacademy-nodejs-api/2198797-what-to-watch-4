@@ -16,15 +16,15 @@ export function createMovie(movieData: string): Movie {
     posterImage,
     backgroundImage,
     backgroundColor,
-    firstname,
-    lastname,
+    firstName,
+    lastName,
     email
   ] = movieData.replace('\n', '').split('\t');
 
   const user = {
     email,
-    firstname,
-    lastname
+    firstName,
+    lastName
   };
 
   return {
