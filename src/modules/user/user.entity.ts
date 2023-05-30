@@ -15,13 +15,13 @@ export interface UserEntity extends defaultClasses.Base {}
 
 export class UserEntity extends defaultClasses.TimeStamps implements User {
   @prop({ unique: true, required: true })
-  public email = '';
+  public email: string;
 
   @prop({ required: true, default: '' })
-  public firstName = '';
+  public firstName: string;
 
   @prop({ required: true, default: '' })
-  public lastName = '';
+  public lastName: string;
 
   @prop({required: true, default: ''})
   private password?: string;
