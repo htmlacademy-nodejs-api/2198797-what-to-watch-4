@@ -7,6 +7,8 @@ export const AppComponent = {
   UserModel: Symbol.for('UserModel'),
   MovieServiceInterface: Symbol.for('MovieServiceInterface'),
   MovieModel: Symbol.for('MovieModel'),
+  CommentServiceInterface: Symbol.for('CommentServiceInterface'),
+  CommentModel: Symbol.for('CommentModel'),
 } as const;
 
 

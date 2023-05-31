@@ -27,7 +27,7 @@ export class MovieEntity extends defaultClasses.TimeStamps{
     @prop({trim: true, required: true})
     public released!: number;
 
-    @prop({trim: true})
+    @prop({default: 0})
     public rating!: number;
 
     @prop({trim: true})
@@ -53,6 +53,9 @@ export class MovieEntity extends defaultClasses.TimeStamps{
 
     @prop({trim: true, required: true})
     public backgroundColor!: number;
+
+    @prop({default: 0})
+    public commentCount!: number;
 
     @prop({
       ref: UserEntity,

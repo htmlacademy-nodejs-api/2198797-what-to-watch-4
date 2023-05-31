@@ -5,6 +5,7 @@ import { AppComponent } from './types/app-component.enum.js';
 import { createRestApplicationContainer } from './app/rest.container.js';
 import { createUserContainer } from './modules/user/user.container.js';
 import { createMovieContainer } from './modules/movie/movie.container.js';
+import { createCommentContainer } from './modules/comment/comment.container.js';
 
 
 async function bootstrap() {
@@ -12,6 +13,7 @@ async function bootstrap() {
     createRestApplicationContainer(),
     createUserContainer(),
     createMovieContainer(),
+    createCommentContainer(),
   );
 
   const application = mainContainer.get<RestApplication>(AppComponent.RestApplication);
