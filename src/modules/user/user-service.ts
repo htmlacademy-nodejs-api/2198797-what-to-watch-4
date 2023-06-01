@@ -11,8 +11,8 @@ import UpdateUserDto from './dto/update-user.dto.js';
 export default class UserService implements UserServiceInterface {
 
   constructor(
-        @inject(AppComponent.LoggerInterface) private readonly logger: LoggerInterface,
-        @inject(AppComponent.UserModel) private readonly userModel: types.ModelType<UserEntity>
+    @inject(AppComponent.LoggerInterface) private readonly logger: LoggerInterface,
+    @inject(AppComponent.UserModel) private readonly userModel: types.ModelType<UserEntity>
   ) {}
 
   public async create(dto: CreateUserDto, salt: string): Promise<DocumentType<UserEntity>> {

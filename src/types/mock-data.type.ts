@@ -11,4 +11,4 @@ export type MockData = {
     emails: string[];
     posterImages: string[];
     backgroundImages: string[];
-  };
+};

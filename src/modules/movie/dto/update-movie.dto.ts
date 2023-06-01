@@ -1,5 +1,5 @@
 
-export default class CreateMovieDto {
+export default class UpdateMovieDto {
   name?: string;
   description?: string;
   premiereDate?: Date;

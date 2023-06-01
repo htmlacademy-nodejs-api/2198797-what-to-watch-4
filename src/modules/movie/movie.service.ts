@@ -5,14 +5,14 @@ import { MovieEntity } from './movie.entity';
 import { AppComponent } from '../../types/app-component.enum.js';
 import { LoggerInterface } from '../../core/logger/logger.interface';
 import { MovieServiceInterface } from './movie-service.interface';
-import {DEFAULT_MOVIE_COUNT} from './movie.constants';
-import UpdateMovieDto from './dto/update-movie.dto.js';
+import {DEFAULT_MOVIE_COUNT} from './movie.constants.js';
+import UpdateMovieDto from './dto/update-movie.dto';
 
 @injectable()
 export default class MovieService implements MovieServiceInterface{
   constructor(
-        @inject(AppComponent.LoggerInterface) private readonly logger: LoggerInterface,
-        @inject(AppComponent.MovieModel) private readonly movieModel: types.ModelType<MovieEntity>
+    @inject(AppComponent.LoggerInterface) private readonly logger: LoggerInterface,
+    @inject(AppComponent.MovieModel) private readonly movieModel: types.ModelType<MovieEntity>
   ){}
 
   public async create(dto: CreateMovieDto): Promise<DocumentType<MovieEntity>>{

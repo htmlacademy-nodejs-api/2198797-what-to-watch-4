@@ -10,8 +10,8 @@ import { MovieEntity } from '../movie/movie.entity.js';
 @injectable()
 export default class CommentService implements CommentServiceInterface{
   constructor(
-        @inject(AppComponent.CommentModel) private readonly commentModel: types.ModelType<CommentEntity>,
-        @inject(AppComponent.MovieModel) private readonly movieModel: types.ModelType<MovieEntity>
+    @inject(AppComponent.CommentModel) private readonly commentModel: types.ModelType<CommentEntity>,
+    @inject(AppComponent.MovieModel) private readonly movieModel: types.ModelType<MovieEntity>
   ) {}
 
   private async ratingUpdate(movieId: string){
