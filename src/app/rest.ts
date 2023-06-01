@@ -5,17 +5,25 @@ import { AppComponent } from '../types/app-component.enum.js';
 import { DatabaseClientInterface } from '../core/database-client/database-client.interface.js';
 import { inject, injectable } from 'inversify';
 import { getMongoURI } from '../core/helpers/db.js';
-import { UserModel } from '../modules/user/user.entity.js';
+import express, { Express } from 'express';
+import { ControllerInterface } from '../core/controller/controller.interface.js';
 
 @injectable()
 export default class RestApplication {
+  private expressApplication: Express;
+
   constructor(
     @inject(AppComponent.LoggerInterface) private readonly logger: LoggerInterface,
     @inject(AppComponent.ConfigInterface) private readonly config: ConfigInterface<RestSchema>,
     @inject(AppComponent.DatabaseClientInterface) private readonly databaseClient: DatabaseClientInterface,
-  ) {}
+    @inject(AppComponent.MovieController) private readonly movieController: ControllerInterface,
+  ) {
+    this.expressApplication = express();
+  }
 
   private async _initDb(){
+    this.logger.info('Init database…');
+
     const mongoUri = getMongoURI(
       this.config.get('DB_USER'),
       this.config.get('DB_PASSWORD'),
@@ -24,24 +32,31 @@ export default class RestApplication {
       this.config.get('DB_NAME'),
     );
 
-    return this.databaseClient.connect(mongoUri);
+    await this.databaseClient.connect(mongoUri);
+    this.logger.info('Init database completed');
   }
+
+  private async _initServer() {
+
+    this.logger.info('Try to init server…');
+
+    const port = this.config.get('PORT');
+    this.expressApplication.listen(port);
+
+    this.logger.info(`🚀Server started on http://localhost:${this.config.get('PORT')}`);
+  }
+
+  private async _initRoutes() {
+    this.logger.info('Controller initialization…');
+    this.expressApplication.use('/movies', this.movieController.router);
+    this.logger.info('Controller initialization completed');
+  }
+
 
   public async init() {
     this.logger.info('Application initialization…');
-    this.logger.info(`Get value from env $PORT: ${this.config.get('PORT')}`);
-
-    this.logger.info('Init database…');
     await this._initDb();
-    this.logger.info('Init database completed');
-
-    const user = await UserModel.create({
-      email: 'test@email.local',
-      firstname: 'Keks',
-      lastname: 'Unknown'
-    });
-
-    console.log(user);
-
+    await this._initRoutes();
+    await this._initServer();
   }
 }
