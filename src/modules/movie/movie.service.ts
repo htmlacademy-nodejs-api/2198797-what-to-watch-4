@@ -11,8 +11,8 @@ import UpdateMovieDto from './dto/update-movie.dto.js';
 @injectable()
 export default class MovieService implements MovieServiceInterface{
   constructor(
-        @inject(AppComponent.LoggerInterface) private readonly logger: LoggerInterface,
-        @inject(AppComponent.MovieModel) private readonly movieModel: types.ModelType<MovieEntity>
+    @inject(AppComponent.LoggerInterface) private readonly logger: LoggerInterface,
+    @inject(AppComponent.MovieModel) private readonly movieModel: types.ModelType<MovieEntity>
   ){}
 
   public async create(dto: CreateMovieDto): Promise<DocumentType<MovieEntity>>{

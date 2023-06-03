@@ -19,7 +19,6 @@ export default class CommentService implements CommentServiceInterface{
       {$match: {movieId: movieId}},
       {$group:{result: {$avg: 'rating'}}}
     ]);
-
     await this.movieModel.updateOne(
       {movieId: movieId},
       {$set: {rating: result}}
