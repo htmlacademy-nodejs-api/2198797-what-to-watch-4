@@ -6,3 +6,51 @@ GET http://localhost:3123/api HTTP/1.1
 GET http://localhost:5010/movies HTTP/1.1
 
 ###
+
+POST http://localhost:5010/movies HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Film",
+  "description": "Film",
+  "premiereDate": "2011, 01, 26",
+  "genre": "Comedy",
+  "released": 2011,
+  "rating": 0,
+  "previewVideoLink": "hyttp://somelink.com",
+  "videoLink": "hyttp://somelink.com",
+  "starring": "Bill M, Michael St",
+  "director": "Why Not",
+  "runTime": 190,
+  "posterImage": "/poster",
+  "backgroundImage": "/image",
+  "backgroundColor": 16666,
+  "userId": "6478da8fc6fe483d28328109"
+}
+
+###
+# Пользователи
+## Создать нового пользователя
+
+POST http://localhost:5010/users/register HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "torans@overlook.net",
+  "firstName": "Jack",
+  "lastName": "Torrance",
+  "password": "shining"
+}
+
+###
+## Авторизовать пользователя
+
+POST http://localhost:5010/users/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "torns@overlook.net",
+  "password": "123456"
+}
+
+###
