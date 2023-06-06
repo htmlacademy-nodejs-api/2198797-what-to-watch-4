@@ -1,4 +1,3 @@
-
 export default class UpdateMovieDto {
   name?: string;
   description?: string;

@@ -1,4 +1,3 @@
-
 export default class CreateMovieDto {
   name!: string;
   description!: string;

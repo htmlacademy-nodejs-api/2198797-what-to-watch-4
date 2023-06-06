@@ -6,7 +6,7 @@ import { AppComponent } from '../../types/app-component.enum.js';
 import { LoggerInterface } from '../../core/logger/logger.interface';
 import { MovieServiceInterface } from './movie-service.interface';
 import {DEFAULT_MOVIE_COUNT} from './movie.constants.js';
-import UpdateMovieDto from './dto/update-movie.dto';
+import UpdateMovieDto from './dto/update-movie.dto.js';
 
 @injectable()
 export default class MovieService implements MovieServiceInterface{
