@@ -43,7 +43,7 @@ export default class MovieService implements MovieServiceInterface{
     const limit = count ?? DEFAULT_MOVIE_COUNT;
 
     return this.movieModel
-      .find({genre: genre}, {}, {limit})
+      .find({ genre : { $all : [genre] }}, {}, {limit})
       .populate('userId')
       .limit(limit)
       .exec();
@@ -67,6 +67,11 @@ export default class MovieService implements MovieServiceInterface{
       .findByIdAndUpdate(movieId, {'$inc': {
         commentCount: 1,
       }}).exec();
+  }
+
+  public async exists(movieId: string): Promise<boolean> {
+    return (await this.movieModel
+      .exists({_id: movieId})) !== null;
   }
 
 }

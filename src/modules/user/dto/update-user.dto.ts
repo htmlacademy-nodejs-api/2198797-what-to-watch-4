@@ -1,5 +1,5 @@
 export default class UpdateUserDto {
-  public firstname?: string;
-  public lastname?: string;
+  public firstName?: string;
+  public lastName?: string;
 }
 

@@ -10,7 +10,7 @@ export default class MovieGenerator implements MovieGeneratorInterface{
   public generate(): string {
     const name = getRandomItem<string>(this.mockData.names);
     const description = getRandomItem<string>(this.mockData.descriptions);
-    const genre = getRandomItem<string>(this.mockData.genres);
+    const genre = getRandomItems<string>(this.mockData.genres).join(';');
     const previewVideoLink = getRandomItem<string>(this.mockData.previewVideoLinks);
     const videoLink = getRandomItem<string>(this.mockData.videoLinks);
     const starring = getRandomItems<string>(this.mockData.actors).join(';');

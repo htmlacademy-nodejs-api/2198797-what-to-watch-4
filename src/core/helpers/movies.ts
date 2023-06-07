@@ -31,7 +31,7 @@ export function createMovie(movieData: string): Movie {
     name,
     description,
     premiereDate: new Date(premiereDate),
-    genre,
+    genre: genre.split(';').map((genreName) => (genreName)),
     released: parseInt(released,10),
     rating: parseInt(rating, 10),
     previewVideoLink,
