@@ -16,12 +16,11 @@ export default class CommentService implements CommentServiceInterface{
 
   private async ratingUpdate(movieId: string){
     const result = await this.commentModel.aggregate([
-      {$match: {movieId: movieId}},
-      {$group:{result: {$avg: 'rating'}}}
+      {$group:{_id: movieId, result: {$avg: '$rating'}}}
     ]);
     await this.movieModel.updateOne(
-      {movieId: movieId},
-      {$set: {rating: result}}
+      {_id: movieId},
+      {$set: {rating: result[0].result}}
     );
   }
 

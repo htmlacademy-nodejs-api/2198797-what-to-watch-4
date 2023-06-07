@@ -5,8 +5,8 @@ export default class UserRdo {
   public email!: string ;
 
   @Expose()
-  public firstname!: string;
+  public firstName!: string;
 
   @Expose()
-  public lastname!: string;
+  public lastName!: string;
 }

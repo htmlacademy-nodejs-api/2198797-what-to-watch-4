@@ -12,4 +12,5 @@ export interface MovieServiceInterface {
   updateById(movieId: string, dto: UpdateMovieDto): Promise<DocumentType<MovieEntity> | null>;
   deleteById(movieId: string): Promise<DocumentType<MovieEntity> | null>;
   incCommentCount(movieId: string): Promise<DocumentType<MovieEntity> | null>;
+  exists(movieId: string): Promise<boolean>;
 }

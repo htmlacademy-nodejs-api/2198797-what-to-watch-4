@@ -22,7 +22,7 @@ export class MovieEntity extends defaultClasses.TimeStamps{
     public premiereDate!: Date;
 
     @prop({trim: true, required: true})
-    public genre!: string;
+    public genre!: string[];
 
     @prop({trim: true, required: true})
     public released!: number;

@@ -9,6 +9,7 @@ import express, { Express } from 'express';
 import { ControllerInterface } from '../core/controller/controller.interface.js';
 import { ExceptionFilterInterface } from '../core/exception-filters/exception-filter.interface.js';
 
+
 @injectable()
 export default class RestApplication {
   private expressApplication: Express;
@@ -20,6 +21,7 @@ export default class RestApplication {
     @inject(AppComponent.MovieController) private readonly movieController: ControllerInterface,
     @inject(AppComponent.ExceptionFilterInterface) private readonly exceptionFilter: ExceptionFilterInterface,
     @inject(AppComponent.UserController) private readonly userController: ControllerInterface,
+    @inject(AppComponent.CommentController) private commentController: ControllerInterface,
   ) {
     this.expressApplication = express();
   }
@@ -53,6 +55,7 @@ export default class RestApplication {
     this.logger.info('Controller initialization…');
     this.expressApplication.use('/movies', this.movieController.router);
     this.expressApplication.use('/users', this.userController.router);
+    this.expressApplication.use('/comments', this.commentController.router);
     this.logger.info('Controller initialization completed');
   }
 
