@@ -26,6 +26,9 @@ export class UserEntity extends defaultClasses.TimeStamps implements User {
   @prop({required: true, default: ''})
   private password?: string;
 
+  @prop({required: false, default: ''})
+  public avatarPath!: string;
+
   constructor(userData: User) {
     super();
     this.email = userData.email;
