@@ -11,7 +11,7 @@ import { HttpMethod } from '../../types/http-method.enum.js';
 import { fillDTO } from '../../core/helpers/common.js';
 import CommentRdo from './rdo/comment.rdo.js';
 import { AppComponent } from '../../types/app-component.enum.js';
-import { ValidateDtoMiddleware } from '../../common/middlewares/validate-dto.middleware.js';
+import { ValidateDtoMiddleware } from '../../core/middlewares/validate-dto.middleware.js';
 
 
 export default class CommentController extends Controller{
