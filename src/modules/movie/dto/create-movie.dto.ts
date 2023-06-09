@@ -1,4 +1,4 @@
-import {IsArray, IsDateString, IsEnum, IsInt, IsMongoId, Max, MaxLength, MinLength, Min, IsString} from 'class-validator';
+import {IsArray, IsDateString, IsEnum, IsInt, Max, MaxLength, MinLength, Min, IsString} from 'class-validator';
 import { Genre } from '../../../types/genre.enum.js';
 
 export default class CreateMovieDto {
@@ -48,7 +48,6 @@ export default class CreateMovieDto {
   @IsInt({message: 'backgroundColor must be an integer'})
     backgroundColor!: number;
 
-  @IsMongoId({message: 'userId field must be valid an id'})
-    userId!: string;
+  userId!: string;
 }
 

@@ -18,9 +18,11 @@ export default class CommentService implements CommentServiceInterface{
     const result = await this.commentModel.aggregate([
       {$group:{_id: movieId, result: {$avg: '$rating'}}}
     ]);
+
+    const roundedResult = (Number(result[0].result)).toFixed(1);
     await this.movieModel.updateOne(
       {_id: movieId},
-      {$set: {rating: result[0].result}}
+      {$set: {rating: roundedResult}}
     );
   }
 

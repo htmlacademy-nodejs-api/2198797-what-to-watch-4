@@ -9,6 +9,7 @@ GET http://localhost:5010/movies/?limit=10 HTTP/1.1
 
 POST http://localhost:5010/movies HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InJhbnNAb3Zlcmxvb2submV0IiwiaWQiOiI2NDgxOTFlNmYwNzQ1OWJmNjFkYzFkNzEiLCJpYXQiOjE2ODYyOTYxMjYsImV4cCI6MTY4NjQ2ODkyNn0.P8E4EFA5AY5RnRBA79MJ5y5u03JMVse9OThig5yB4r8
 
 {
   "name": "Film",
@@ -48,8 +49,8 @@ POST http://localhost:5010/users/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "torns@overlook.net",
-  "password": "123456"
+  "email": "rans@overlook.net",
+  "password": "shining"
 }
 
 ###
@@ -61,7 +62,9 @@ GET http://localhost:5010/movies/647e14247795331d2a560c61 HTTP/1.1
 ###
 ## Удаление фильм
 
-DELETE http://localhost:5010/movies/647e14247795331d2a560c41 HTTP/1.1
+DELETE http://localhost:5010/movies/6482dde0dfbeb541b422c6e8 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InJhbnNAb3Zlcmxvb2submV0IiwiaWQiOiI2NDgxOTFlNmYwNzQ1OWJmNjFkYzFkNzEiLCJpYXQiOjE2ODYyOTYxMjYsImV4cCI6MTY4NjQ2ODkyNn0.P8E4EFA5AY5RnRBA79MJ5y5u03JMVse9OThig5yB4r8
+
 
 ###
 ## Обновление фильма
@@ -83,12 +86,12 @@ GET http://localhost:5010/movies/genre/comedy/?limit=5 HTTP/1.1
 ## Создать комментарий
 POST http://localhost:5010/comments HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InJhbnNAb3Zlcmxvb2submV0IiwiaWQiOiI2NDgxOTFlNmYwNzQ1OWJmNjFkYzFkNzEiLCJpYXQiOjE2ODYyOTYxMjYsImV4cCI6MTY4NjQ2ODkyNn0.P8E4EFA5AY5RnRBA79MJ5y5u03JMVse9OThig5yB4r8
 
 {
-  "comment": "Акуна матата",
+  "comment": "Акуна матата2",
   "rating": 1,
-  "movieId": "647e14247795331d2a560c50",
-  "userId": "647e14247795331d2a560c4e"
+  "movieId": "647e14247795331d2a560c50"
 }
 
 ###
@@ -110,4 +113,11 @@ Content-Type: image/jpeg
 < /Users/vitalijbelaea/Documents/cats.jpg
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
+###
 
+## Проверка авторизации
+
+GET http://localhost:5010/users/login
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InJhbnNAb3Zlcmxvb2submV0IiwiaWQiOiI2NDgxOTFlNmYwNzQ1OWJmNjFkYzFkNzEiLCJpYXQiOjE2ODYyOTYxMjYsImV4cCI6MTY4NjQ2ODkyNn0.P8E4EFA5AY5RnRBA79MJ5y5u03JMVse9OThig5yB4r8
+
+###
