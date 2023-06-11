@@ -54,11 +54,11 @@ export default class UserService implements UserServiceInterface {
       return null;
     }
 
-    if (user.verifyPassword(dto.password, salt)) {
-      return user;
+    if (! user.verifyPassword(dto.password, salt)) {
+      return null;
     }
 
-    return null;
+    return user;
   }
 
 }

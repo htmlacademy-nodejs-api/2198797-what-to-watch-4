@@ -126,7 +126,7 @@ export default class UserController extends Controller {
       throw new HttpError(
         StatusCodes.UNAUTHORIZED,
         'Unauthorized',
-        'UserController'
+        UserController.name
       );
     }
 
