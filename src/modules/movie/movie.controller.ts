@@ -18,6 +18,7 @@ import { ValidateDtoMiddleware } from '../../core/middlewares/validate-dto.middl
 import { DocumentExistsMiddleware } from '../../core/middlewares/document-exists.middleware.js';
 import { ValidateGenreMiddleware } from '../../core/middlewares/validate-genre.middleware.js';
 import { RequestQuery } from '../../types/request-query.type.js';
+import { PrivateRoateMiddleware } from '../../core/middlewares/private-route.middleware.js';
 
 type ParamsGetMovie = {
   movieId: string;
@@ -39,12 +40,18 @@ export default class MovieController extends Controller {
 
     this.logger.info('Register routes for CategoryController…');
 
-    this.addRoute({path: '/', method: HttpMethod.Get, handler: this.index});
+    this.addRoute({
+      path: '/',
+      method: HttpMethod.Get,
+      handler: this.index});
     this.addRoute({
       path: '/',
       method: HttpMethod.Post,
       handler: this.create,
-      middlewares: [new ValidateDtoMiddleware(CreateMovieDto)]});
+      middlewares: [
+        new PrivateRoateMiddleware(),
+        new ValidateDtoMiddleware(CreateMovieDto)
+      ]});
     this.addRoute({
       path: '/:movieId',
       method: HttpMethod.Get,
@@ -59,6 +66,7 @@ export default class MovieController extends Controller {
       method: HttpMethod.Delete,
       handler: this.delete,
       middlewares: [
+        new PrivateRoateMiddleware(),
         new ValidateObjectIdMiddleware('movieId'),
         new DocumentExistsMiddleware(this.movieService, 'Movie', 'movieId')
       ]
@@ -68,6 +76,7 @@ export default class MovieController extends Controller {
       method: HttpMethod.Patch,
       handler: this.update,
       middlewares: [
+        new PrivateRoateMiddleware(),
         new ValidateObjectIdMiddleware('movieId'),
         new ValidateDtoMiddleware(UpdateMovieDto),
         new DocumentExistsMiddleware(this.movieService, 'Movie', 'movieId')
@@ -98,10 +107,10 @@ export default class MovieController extends Controller {
   }
 
   public async create(
-    { body }: Request<Record<string, unknown>, Record<string, unknown>, CreateMovieDto>,
+    { body, user }: Request<Record<string, unknown>, Record<string, unknown>, CreateMovieDto>,
     res: Response
   ): Promise<void> {
-    const result = await this.movieService.create(body);
+    const result = await this.movieService.create({...body, userId: user.id});
     this.created(res, fillDTO(MovieRdo, result));
   }
 
