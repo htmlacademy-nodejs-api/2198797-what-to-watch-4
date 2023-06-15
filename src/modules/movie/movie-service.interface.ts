@@ -14,4 +14,7 @@ export interface MovieServiceInterface extends DocumentExistsInterface{
   deleteById(movieId: string): Promise<DocumentType<MovieEntity> | null>;
   incCommentCount(movieId: string): Promise<DocumentType<MovieEntity> | null>;
   exists(movieId: string): Promise<boolean>;
+  matchMovieUser(movieId: string, userId:string): Promise<boolean>;
+  getFavouriteMovies(userId:string): Promise<DocumentType<MovieEntity>[] | null>;
+  updateFavoriteMovies(userId:string, movieId:string, status:string): Promise<DocumentType<MovieEntity> | null>;
 }

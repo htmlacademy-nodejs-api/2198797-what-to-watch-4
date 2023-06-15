@@ -45,10 +45,10 @@ export class MovieEntity extends defaultClasses.TimeStamps{
     @prop({trim: true, required: true})
     public runTime!: number;
 
-    @prop({trim: true, required: true})
+    @prop({default: ''})
     public posterImage!: string;
 
-    @prop({trim: true, required: true})
+    @prop({default: ''})
     public backgroundImage!: string;
 
     @prop({trim: true, required: true})
@@ -56,6 +56,12 @@ export class MovieEntity extends defaultClasses.TimeStamps{
 
     @prop({default: 0})
     public commentCount!: number;
+
+    @prop({
+      ref: UserEntity,
+      default: []
+    })
+    public favorite?: Ref<UserEntity>[];
 
     @prop({
       ref: UserEntity,

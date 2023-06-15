@@ -74,4 +74,30 @@ export default class MovieService implements MovieServiceInterface{
       .exists({_id: movieId})) !== null;
   }
 
+  public async matchMovieUser(movieId: string, userId:string): Promise<boolean> {
+    return (await this.movieModel
+      .exists({_id: movieId, userId:userId})) !== null;
+  }
+
+  public async getFavouriteMovies(userId:string): Promise<DocumentType<MovieEntity>[] | null>{
+    return this.movieModel
+      .find({favorite: userId})
+      .populate('userId')
+      .exec();
+  }
+
+  public async updateFavoriteMovies(userId:string, movieId:string, status:string): Promise<DocumentType<MovieEntity> | null>{
+    if(Number(status) !== 0){
+      return this.movieModel
+        .findByIdAndUpdate(movieId, {'$addToSet': {
+          favorite: userId,
+        }})
+        .populate('userId')
+        .exec();
+    }
+    return this.movieModel
+      .findByIdAndUpdate(movieId, {'$pull': {favorite: userId}})
+      .exec();
+
+  }
 }

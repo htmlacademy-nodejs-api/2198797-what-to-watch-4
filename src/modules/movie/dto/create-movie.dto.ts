@@ -37,14 +37,6 @@ export default class CreateMovieDto {
   @IsInt({message: 'runTime must be an integer'})
     runTime!: number;
 
-  @IsString({message: 'posterImage is required'})
-  @MaxLength(256, {message: 'Maximum posterImage field is 256'})
-    posterImage!: string;
-
-  @IsString({message: 'backgroundImage is required'})
-  @MaxLength(256, {message: 'Maximum backgroundImage field is 256'})
-    backgroundImage!: string;
-
   @IsInt({message: 'backgroundColor must be an integer'})
     backgroundColor!: number;
 
