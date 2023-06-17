@@ -16,12 +16,29 @@ tags:
     description: Действия с пользователем.
 
 paths:
-  /movies/{genre}/{amount}:
+  /movies/?limit=:
     get:
       tags:
         - movies
       summary: Получить список фильмов. 
-      description: Возвращает массив фильмов. Жанр возвращаемых фильмов указан в параметре genre.Количество возвращаемых фильмов задается в параметре amount. По умолчанию 60 фильмов. 
+      description: Возвращает массив фильмов из базы. Количество возвращаемых фильмов задается в параметре limit. По умолчанию 60 фильмов. 
+      responses:
+        "200":
+          description: Массив фильмов.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/movies'
+
+        "404":
+          description: Фильм не найден.
+
+  /movies/{genre}/?limit=:
+    get:
+      tags:
+        - movies
+      summary: Получить список фильмов определенного жанра. 
+      description: Возвращает массив фильмов определенного жанра. Жанр возвращаемых фильмов указан в параметре genre.Количество возвращаемых фильмов задается в параметре limit. По умолчанию 60 фильмов. 
       responses:
         "200":
           description: Массив фильмов.
@@ -72,7 +89,7 @@ paths:
         "404":
           description: Фильм не найден.
 
-    put:
+    patch:
       tags:
         - movies
       summary: Редактирование карточки фильма.
@@ -108,7 +125,7 @@ paths:
           description: Фильм не найден.
 
 
-  /promo:
+  /movies/promo/get:
     get:
       tags:
         - movies
@@ -122,19 +139,19 @@ paths:
               schema:
                 $ref: '#/components/schemas/moviePull'
 
-  /favorite:
+  /movies/favorit/get:
     get:
       tags:
         - movies
       summary: Получить список фильмов «К просмотру».
-      description: Возвращает массив фильмов, добавленных в список «к просмотру».
+      description: Возвращает массив фильмов, добавленных в список «к просмотру»
 
-  /favorite/{movieId}/{status}:
+  /movies/favorite/{movieId}/{status}:
     post:
       tags:
         - movies
       summary: Изменить статус «к просмотру» у фильма.
-      description: Изменяет статус «к просмотру». Возвращает фильм с идентификатором movieId с актуальным состоянием.
+      description: Изменяет статус «к просмотру». Возвращает фильм с идентификатором movieId с актуальным состоянием. Статус 0 - удалить из списка, 1 - добавить в список.
        
 
 
@@ -237,10 +254,10 @@ components:
         email:
           type: string
           example: jacksmith@gmail.ru
-        firstname:
+        firstName:
           type: string
           example: Jack
-        lastname:
+        lastName:
           type: string
           example: Smith
         password:
@@ -272,8 +289,10 @@ components:
             type: number
             example: 1981
           genre:
-            type: string
-            example: "Comedy"
+            type: array
+            items:
+              type: string
+            example: ["comedy", "family", "crime"]
           previewVideoLink:
             type: string
             example: "https://some-link"
@@ -283,9 +302,24 @@ components:
           commentsCount:
             type: number
             example: 40
-          user:
-            type: string
-            example: 6329c3d6a04ab1061c6425ea
+          user: 
+            type: object
+            properties:
+              id:
+                type: string
+                example: 6329c3d6a04ab1061c6425ea
+              email: 
+                type: string
+                example: "keanu@gmail.com"
+              firstName:
+                type: string
+                example: "Jack"
+              lastName:
+                type: string
+                example: "Jones"
+              avatarPath:
+                type: string
+                example: "http://localhost:5010/static/default-avatar.jpg"
 
         
 
@@ -294,7 +328,7 @@ components:
       properties:
         id:
           type: number
-          example: 1
+          example: 6489d2a808d48dc51c2dd55
         name:
           type: string
           example: "The Grand Budapest Hotel"
@@ -303,10 +337,12 @@ components:
           example: "In the 1930s the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege."
         premiereDate:
           type: string
-          example: "1981, 01, 20"
+          example: "2023-06-13T21:00:00.000Z"
         genre:
-          type: string
-          example: "Comedy"
+          type: array
+          items:
+            type: string
+          example: ["comedy", "family", "crime"]
         released:
           type: number
           example: 1981
@@ -342,16 +378,28 @@ components:
         commentsCount:
           type: number
           example: 40
-        user:
-          type: string
-          example: 6329c3d6a04ab1061c6425ea
+        user: 
+            type: object
+            properties:
+              id:
+                type: string
+                example: 6329c3d6a04ab1061c6425ea
+              email: 
+                type: string
+                example: "keanu@gmail.com"
+              firstName:
+                type: string
+                example: "Jack"
+              lastName:
+                type: string
+                example: "Jones"
+              avatarPath:
+                type: string
+                example: "http://localhost:5010/static/default-avatar.jpg"
 
     moviePush:
       type: object
       properties:
-        id:
-          type: number
-          example: 1
         name:
           type: string
           example: "The Grand Budapest Hotel"
@@ -360,10 +408,12 @@ components:
           example: "In the 1930s the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege."
         premiereDate:
           type: string
-          example: "1981, 01, 20"
+          example: "2023-06-13T21:00:00.000Z"
         genre:
-          type: string
-          example: "Comedy"
+          type: array
+          items:
+            type: string
+          example: ["comedy", "family", "crime"]
         released:
           type: number
           example: 1981
@@ -396,9 +446,7 @@ components:
         backgroundColor:
           type: string
           example: "#ffffff"
-        user:
-          type: string
-          example: 6329c3d6a04ab1061c6425ea
+
 
     comments: 
       type: array
@@ -410,10 +458,10 @@ components:
             example: "The best movie!!!"
           date:
             type: string
-            example: "Mon May 29 2023 20:53:22 GMT+0300 (Москва, стандартное время)"
+            example: "2023-06-13T21:00:00.000Z"
           id:
-            type: number
-            example: 1
+            type: string
+            example: 6329c3d6a04ab1071c642511
           rating:
             type: number
             example: 9.9
@@ -421,11 +469,21 @@ components:
             type: object
             properties:
               id:
-                type: number
-                example: 4
-              name:
                 type: string
-                example: "Jack Jones"
+                example: 6329c3d6a04ab1061c6425ea
+              email: 
+                type: string
+                example: "keanu@gmail.com"
+              firstName:
+                type: string
+                example: "Jack"
+              lastName:
+                type: string
+                example: "Jones"
+              avatarPath:
+                type: string
+                example: "http://localhost:5010/static/default-avatar.jpg"
+
 
     comment:
       type: object

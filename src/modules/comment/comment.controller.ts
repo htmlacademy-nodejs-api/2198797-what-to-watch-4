@@ -12,16 +12,18 @@ import { fillDTO } from '../../core/helpers/common.js';
 import CommentRdo from './rdo/comment.rdo.js';
 import { AppComponent } from '../../types/app-component.enum.js';
 import { ValidateDtoMiddleware } from '../../core/middlewares/validate-dto.middleware.js';
-import { PrivateRoateMiddleware } from '../../core/middlewares/private-route.middleware.js';
-
+import { PrivateRouteMiddleware } from '../../core/middlewares/private-route.middleware.js';
+import { ConfigInterface } from '../../core/config/config.interface.js';
+import { RestSchema } from '../../core/config/rest.schema.js';
 
 export default class CommentController extends Controller{
   constructor(
         @inject(AppComponent.LoggerInterface) logger: LoggerInterface,
         @inject(AppComponent.CommentServiceInterface) private readonly commentService: CommentServiceInterface,
         @inject(AppComponent.MovieServiceInterface) private readonly movieService: MovieServiceInterface,
+        @inject(AppComponent.ConfigInterface) configService: ConfigInterface<RestSchema>,
   ) {
-    super(logger);
+    super(logger, configService);
 
     this.logger.info('Register routes for CommentController…');
     this.addRoute({
@@ -29,7 +31,7 @@ export default class CommentController extends Controller{
       method: HttpMethod.Post,
       handler: this.create,
       middlewares: [
-        new PrivateRoateMiddleware(),
+        new PrivateRouteMiddleware(),
         new ValidateDtoMiddleware(CreateCommentDto),
       ]});
   }

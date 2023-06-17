@@ -22,11 +22,10 @@ export default class MovieGenerator implements MovieGeneratorInterface{
     const backgroundImage = getRandomItem<string>(this.mockData.backgroundImages);
     const premiereDate = dayjs().format('YYYY, MM, DD');
     const released = generateRandomValue(1900, 2023);
-    const rating = generateRandomValue (1, 10, 1);
     const runTime = generateRandomValue(10, 240);
     const backgroundColor = generateRandomValue(0, 2000000).toString(16);
 
-    return [name, description, premiereDate, genre, released, rating, previewVideoLink, videoLink, starring, director, runTime, posterImage, backgroundImage, backgroundColor, firstName, lastName, email].join('\t');
+    return [name, description, premiereDate, genre, released, previewVideoLink, videoLink, starring, director, runTime, posterImage, backgroundImage, backgroundColor, firstName, lastName, email].join('\t');
   }
 
 }
