@@ -1,4 +1,5 @@
 import { inject, injectable } from 'inversify';
+import mongoose from 'mongoose';
 import { DocumentType, types} from '@typegoose/typegoose';
 import { CommentServiceInterface } from './comment-service.interface.js';
 import { AppComponent } from '../../types/app-component.enum.js';
@@ -6,6 +7,7 @@ import CreateCommentDto from './dto/create-comment.dto.js';
 import { CommentEntity } from './comment.entity.js';
 import { MovieEntity } from '../movie/movie.entity.js';
 import { DEFAULT_COMMENT_COUNT } from './comment.constants.js';
+
 
 @injectable()
 export default class CommentService implements CommentServiceInterface{
@@ -16,7 +18,8 @@ export default class CommentService implements CommentServiceInterface{
 
   private async ratingUpdate(movieId: string){
     const result = await this.commentModel.aggregate([
-      {$group:{_id: movieId, result: {$avg: '$rating'}}}
+      {'$match': {'movieId': new mongoose.Types.ObjectId(movieId)}},
+      {'$group': {_id: movieId, result: {'$avg': '$rating'}}}
     ]);
 
     const roundedResult = (Number(result[0].result)).toFixed(1);
@@ -36,7 +39,8 @@ export default class CommentService implements CommentServiceInterface{
     return this.commentModel
       .find({movieId})
       .limit(DEFAULT_COMMENT_COUNT)
-      .populate('userId');
+      .populate('userId')
+      .exec();
   }
 
   public async deleteByMovieId(movieId: string): Promise<number> {

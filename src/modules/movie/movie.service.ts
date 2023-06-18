@@ -7,6 +7,8 @@ import { LoggerInterface } from '../../core/logger/logger.interface';
 import { MovieServiceInterface } from './movie-service.interface';
 import {DEFAULT_MOVIE_COUNT} from './movie.constants.js';
 import UpdateMovieDto from './dto/update-movie.dto.js';
+import { DEFAULT_POSTER_IMGE_FILE_NAME } from './movie.constant.js';
+import { DEFAULT_BACKGROUND_IMAGE_FILE_NAME } from './movie.constant.js';
 
 @injectable()
 export default class MovieService implements MovieServiceInterface{
@@ -16,7 +18,7 @@ export default class MovieService implements MovieServiceInterface{
   ){}
 
   public async create(dto: CreateMovieDto): Promise<DocumentType<MovieEntity>>{
-    const result = await this.movieModel.create(dto);
+    const result = await this.movieModel.create({...dto, posterImage:DEFAULT_POSTER_IMGE_FILE_NAME, backgroundImage:DEFAULT_BACKGROUND_IMAGE_FILE_NAME});
     this.logger.info(`New movie created: ${dto.name}`);
 
     return result;

@@ -58,6 +58,5 @@ export default class UpdateMovieDto {
     backgroundImage?: string;
 
   @IsOptional()
-  @IsInt({message: 'backgroundColor must be an integer'})
-    backgroundColor?: number;
+    backgroundColor?: string;
 }
