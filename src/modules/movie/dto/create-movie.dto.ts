@@ -1,4 +1,4 @@
-import {IsArray, IsDateString, IsEnum, IsInt, Max, MaxLength, MinLength, Min, IsString} from 'class-validator';
+import {IsArray, IsEnum, IsInt, Max, MaxLength, MinLength, Min, IsString} from 'class-validator';
 import { Genre } from '../../../types/genre.enum.js';
 
 export default class CreateMovieDto {
@@ -9,9 +9,6 @@ export default class CreateMovieDto {
   @MinLength(2, {message: 'Minimum description length must be 2'})
   @MaxLength(1024, {message: 'Maximum description length must be 1024'})
     description!: string;
-
-  @IsDateString({}, {message: 'postDate must be valid ISO date'})
-    premiereDate!: Date;
 
   @IsArray({message: 'Field genre must be an array'})
   @IsEnum(Genre, { each: true })
@@ -37,9 +34,9 @@ export default class CreateMovieDto {
   @IsInt({message: 'runTime must be an integer'})
     runTime!: number;
 
-  @IsInt({message: 'backgroundColor must be an integer'})
-    backgroundColor!: number;
+    @IsString({message: 'backgroundColor is required'})
+      backgroundColor!: string;
 
-  userId!: string;
+    userId!: string;
 }
 

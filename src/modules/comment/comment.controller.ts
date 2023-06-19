@@ -15,6 +15,8 @@ import { ValidateDtoMiddleware } from '../../core/middlewares/validate-dto.middl
 import { PrivateRouteMiddleware } from '../../core/middlewares/private-route.middleware.js';
 import { ConfigInterface } from '../../core/config/config.interface.js';
 import { RestSchema } from '../../core/config/rest.schema.js';
+import { ValidateObjectIdMiddleware } from '../../core/middlewares/validate-objectid.middleware.js';
+import { DocumentExistsMiddleware } from '../../core/middlewares/document-exists.middleware.js';
 
 export default class CommentController extends Controller{
   constructor(
@@ -34,6 +36,16 @@ export default class CommentController extends Controller{
         new PrivateRouteMiddleware(),
         new ValidateDtoMiddleware(CreateCommentDto),
       ]});
+
+    this.addRoute({
+      path: '/:movieId',
+      method: HttpMethod.Get,
+      handler: this.getComments,
+      middlewares: [
+        new ValidateObjectIdMiddleware('movieId'),
+        new DocumentExistsMiddleware(this.movieService, 'Movie', 'movieId')
+      ]
+    });
   }
 
   public async create(
@@ -52,5 +64,11 @@ export default class CommentController extends Controller{
     const comment = await this.commentService.create({ ...body, userId: user.id });
     await this.movieService.incCommentCount(body.movieId);
     this.created(res, fillDTO(CommentRdo, comment));
+  }
+
+
+  public async getComments({params}: Request,res: Response): Promise<void> {
+    const comments = await this.commentService.findByMovieId(params.movieId);
+    this.ok(res, fillDTO(CommentRdo, comments));
   }
 }

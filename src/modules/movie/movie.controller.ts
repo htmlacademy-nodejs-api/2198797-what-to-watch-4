@@ -12,8 +12,6 @@ import CreateMovieRdo from './rdo/create_movie.rdo.js';
 import CreateMovieDto from './dto/create-movie.dto.js';
 import * as core from 'express-serve-static-core';
 import UpdateMovieDto from './dto/update-movie.dto.js';
-import { CommentServiceInterface } from '../comment/comment-service.interface.js';
-import CommentRdo from '../comment/rdo/comment.rdo.js';
 import { ValidateObjectIdMiddleware } from '../../core/middlewares/validate-objectid.middleware.js';
 import { ValidateDtoMiddleware } from '../../core/middlewares/validate-dto.middleware.js';
 import { DocumentExistsMiddleware } from '../../core/middlewares/document-exists.middleware.js';
@@ -43,7 +41,6 @@ export default class MovieController extends Controller {
   constructor(
     @inject(AppComponent.LoggerInterface) logger: LoggerInterface,
     @inject(AppComponent.MovieServiceInterface) private readonly movieService: MovieServiceInterface,
-    @inject(AppComponent.CommentServiceInterface) private readonly commentService: CommentServiceInterface,
     @inject(AppComponent.ConfigInterface) configService: ConfigInterface<RestSchema>,
   ) {
     super(logger, configService);
@@ -104,16 +101,6 @@ export default class MovieController extends Controller {
       method: HttpMethod.Get,
       handler: this.getMoviesFromGenre,
       middlewares:[new ValidateGenreMiddleware('genre')]});
-
-    this.addRoute({
-      path: '/:movieId/comments',
-      method: HttpMethod.Get,
-      handler: this.getComments,
-      middlewares: [
-        new ValidateObjectIdMiddleware('movieId'),
-        new DocumentExistsMiddleware(this.movieService, 'Movie', 'movieId')
-      ]
-    });
 
     this.addRoute({
       path: '/:movieId/posterImage',
@@ -216,14 +203,6 @@ export default class MovieController extends Controller {
     const movies = await this.movieService.findByGenre(params.genre, query.limit);
     const moviesToResponse = fillDTO(MoviesRdo, movies);
     this.ok(res, moviesToResponse);
-  }
-
-  public async getComments(
-    {params}: Request<core.ParamsDictionary | ParamsGetMovie, object, object>,
-    res: Response
-  ): Promise<void> {
-    const comments = await this.commentService.findByMovieId(params.movieId);
-    this.ok(res, fillDTO(CommentRdo, comments));
   }
 
   public async uploadPosterImage(req: Request<core.ParamsDictionary | ParamsGetMovie, object, object>, res: Response) : Promise<void>{

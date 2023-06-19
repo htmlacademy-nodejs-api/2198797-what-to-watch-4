@@ -97,7 +97,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InJhbnM1QG92ZXJsb29rLm5ld
 ###
 ## Получить фильмы определенного жанра
 
-GET http://localhost:5010/movies/genre/crime/?limit=5 HTTP/1.1
+GET http://localhost:5010/movies/genre/crime HTTP/1.1
 
 ###
 
