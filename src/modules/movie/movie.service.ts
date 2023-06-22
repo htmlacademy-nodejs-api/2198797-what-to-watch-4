@@ -17,6 +17,7 @@ export default class MovieService implements MovieServiceInterface {
     @inject(AppComponent.MovieModel) private readonly movieModel: types.ModelType<MovieEntity>
   ) { }
 
+
   public async create(dto: CreateMovieDto): Promise<DocumentType<MovieEntity>> {
     const result = await this.movieModel.create({ ...dto, posterImage: DEFAULT_POSTER_IMGE_FILE_NAME, backgroundImage: DEFAULT_BACKGROUND_IMAGE_FILE_NAME });
     this.logger.info(`New movie created: ${dto.name}`);
