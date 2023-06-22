@@ -25,7 +25,7 @@ export default class ImportCommand implements CliCommandInterface {
   private logger!: LoggerInterface;
   private salt!: string;
 
-  constructor(){
+  constructor() {
     this.onLine = this.onLine.bind(this);
     this.onComplete = this.onComplete.bind(this);
 
@@ -35,7 +35,7 @@ export default class ImportCommand implements CliCommandInterface {
     this.databaseService = new MongoClientService(this.logger);
   }
 
-  private async saveMovie(movie: Movie){
+  private async saveMovie(movie: Movie) {
 
     const user = await this.userService.findOrCreate({
       ...movie.user,
@@ -44,11 +44,11 @@ export default class ImportCommand implements CliCommandInterface {
 
     await this.movieService.create({
       ...movie,
-      userId: user.id});
-
+      userId: user.id
+    });
   }
 
-  private async onLine(line: string, resolve: () => void){
+  private async onLine(line: string, resolve: () => void) {
     const movie = createMovie(line);
     await this.saveMovie(movie);
     resolve();
@@ -72,7 +72,7 @@ export default class ImportCommand implements CliCommandInterface {
 
     try {
       await fileReader.read();
-    } catch(err) {
+    } catch (err) {
       console.log(`Can't read the file: ${getErrorMessage(err)}`);
     }
   }

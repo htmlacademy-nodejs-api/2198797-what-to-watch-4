@@ -50,7 +50,8 @@ export default class MovieController extends Controller {
     this.addRoute({
       path: '/',
       method: HttpMethod.Get,
-      handler: this.index});
+      handler: this.index
+    });
 
     this.addRoute({
       path: '/',
@@ -59,7 +60,8 @@ export default class MovieController extends Controller {
       middlewares: [
         new PrivateRouteMiddleware(),
         new ValidateDtoMiddleware(CreateMovieDto)
-      ]});
+      ]
+    });
 
     this.addRoute({
       path: '/:movieId',
@@ -100,7 +102,8 @@ export default class MovieController extends Controller {
       path: '/genre/:genre',
       method: HttpMethod.Get,
       handler: this.getMoviesFromGenre,
-      middlewares:[new ValidateGenreMiddleware('genre')]});
+      middlewares: [new ValidateGenreMiddleware('genre')]
+    });
 
     this.addRoute({
       path: '/:movieId/posterImage',
@@ -164,15 +167,15 @@ export default class MovieController extends Controller {
     { body, user }: Request<Record<string, unknown>, Record<string, unknown>, CreateMovieDto>,
     res: Response
   ): Promise<void> {
-    const result = await this.movieService.create({...body, userId: user.id});
+    const result = await this.movieService.create({ ...body, userId: user.id });
     this.created(res, fillDTO(CreateMovieRdo, result));
   }
 
   public async show(
-    {params}: Request<core.ParamsDictionary | ParamsGetMovie>,
+    { params }: Request<core.ParamsDictionary | ParamsGetMovie>,
     res: Response
   ): Promise<void> {
-    const {movieId} = params;
+    const { movieId } = params;
     const movie = await this.movieService.findById(movieId);
     const movieToResponse = fillDTO(MovieRdo, movie);
     this.ok(res, movieToResponse);
@@ -180,16 +183,16 @@ export default class MovieController extends Controller {
   }
 
   public async delete(
-    {params}: Request<core.ParamsDictionary | ParamsGetMovie>,
+    { params }: Request<core.ParamsDictionary | ParamsGetMovie>,
     res: Response
   ): Promise<void> {
-    const {movieId} = params;
+    const { movieId } = params;
     const movie = await this.movieService.deleteById(movieId);
     this.noContent(res, movie);
   }
 
   public async update(
-    {body, params}: Request<core.ParamsDictionary | ParamsGetMovie, Record<string, unknown>, UpdateMovieDto>,
+    { body, params }: Request<core.ParamsDictionary | ParamsGetMovie, Record<string, unknown>, UpdateMovieDto>,
     res: Response
   ): Promise<void> {
     const updatedMovie = await this.movieService.updateById(params.movieId, body);
@@ -197,7 +200,7 @@ export default class MovieController extends Controller {
   }
 
   public async getMoviesFromGenre(
-    {params, query}: Request<core.ParamsDictionary | ParamsGetGenre, unknown, unknown, RequestQuery>,
+    { params, query }: Request<core.ParamsDictionary | ParamsGetGenre, unknown, unknown, RequestQuery>,
     res: Response
   ): Promise<void> {
     const movies = await this.movieService.findByGenre(params.genre, query.limit);
@@ -205,35 +208,35 @@ export default class MovieController extends Controller {
     this.ok(res, moviesToResponse);
   }
 
-  public async uploadPosterImage(req: Request<core.ParamsDictionary | ParamsGetMovie, object, object>, res: Response) : Promise<void>{
-    const {movieId} = req.params;
+  public async uploadPosterImage(req: Request<core.ParamsDictionary | ParamsGetMovie, object, object>, res: Response): Promise<void> {
+    const { movieId } = req.params;
     const updateDto = { posterImage: req.file?.filename };
     await this.movieService.updateById(movieId, updateDto);
     this.created(res, fillDTO(UploadPosterImageRdo, updateDto));
   }
 
-  public async uploadBackgroundImage(req: Request<core.ParamsDictionary | ParamsGetMovie, object, object>, res: Response) : Promise<void> {
-    const {movieId} = req.params;
+  public async uploadBackgroundImage(req: Request<core.ParamsDictionary | ParamsGetMovie, object, object>, res: Response): Promise<void> {
+    const { movieId } = req.params;
     const updateDto = { backgroundImage: req.file?.filename };
     await this.movieService.updateById(movieId, updateDto);
     this.created(res, fillDTO(UploadBackgroundImageRdo, updateDto));
   }
 
-  public async getFavoriteMovies(_req: Request, _res:Response) : Promise<void> {
+  public async getFavoriteMovies(_req: Request, _res: Response): Promise<void> {
     const userId = _req.user.id;
     const movies = await this.movieService.getFavouriteMovies(userId);
     const moviesToResponse = fillDTO(MoviesRdo, movies);
     this.ok(_res, moviesToResponse);
   }
 
-  public async updateFavoriteMovies(_req: Request, _res:Response) : Promise<void> {
-    const {movieId, status} = _req.params;
+  public async updateFavoriteMovies(_req: Request, _res: Response): Promise<void> {
+    const { movieId, status } = _req.params;
     const userId = _req.user.id;
     const movie = await this.movieService.updateFavoriteMovies(userId, movieId, status);
     const movieToResponse = fillDTO(MoviesRdo, movie);
-    if(Number(status) === 0){
+    if (Number(status) === 0) {
       this.noContent(_res, movieToResponse);
-    }else{
+    } else {
       this.ok(_res, movieToResponse);
     }
   }

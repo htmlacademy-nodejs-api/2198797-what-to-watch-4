@@ -14,6 +14,6 @@ export type Movie = {
     runTime: number;
     posterImage: string;
     backgroundImage: string;
-    backgroundColor: number;
+    backgroundColor: string;
     user: User;
 }

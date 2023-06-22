@@ -1,14 +1,14 @@
-import {NextFunction, Request, Response} from 'express';
-import {ClassConstructor} from 'class-transformer/types/interfaces/class-constructor.type.js';
-import {validate} from 'class-validator';
-import {plainToInstance} from 'class-transformer';
+import { NextFunction, Request, Response } from 'express';
+import { ClassConstructor } from 'class-transformer/types/interfaces/class-constructor.type.js';
+import { validate } from 'class-validator';
+import { plainToInstance } from 'class-transformer';
 import { MiddlewareInterface } from '../../types/middleware.interface';
 import ValidationError from '../errors/validation-error.js';
 import { transformErrors } from '../helpers/index.js';
 
 
 export class ValidateDtoMiddleware implements MiddlewareInterface {
-  constructor(private dto: ClassConstructor<object>) {}
+  constructor(private dto: ClassConstructor<object>) { }
 
   public async execute(req: Request, _res: Response, next: NextFunction): Promise<void> {
     const { body } = req;

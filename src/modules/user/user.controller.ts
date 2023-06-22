@@ -1,4 +1,4 @@
-import { Request, Response} from 'express';
+import { Request, Response } from 'express';
 import { inject, injectable } from 'inversify';
 import { Controller } from '../../core/controller/controller.abstract.js';
 import { LoggerInterface } from '../../core/logger/logger.interface.js';
@@ -10,7 +10,7 @@ import { ConfigInterface } from '../../core/config/config.interface.js';
 import { RestSchema } from '../../core/config/rest.schema.js';
 import HttpError from '../../core/errors/http-error.js';
 import { StatusCodes } from 'http-status-codes';
-import { fillDTO, createJWT} from '../../core/helpers/index.js';
+import { fillDTO, createJWT } from '../../core/helpers/index.js';
 import UserRdo from './rdo/user.rdo.js';
 import LoginUserDto from './dto/login-user.dto.js';
 import { ValidateDtoMiddleware } from '../../core/middlewares/validate-dto.middleware.js';
@@ -62,7 +62,7 @@ export default class UserController extends Controller {
   }
 
   public async create(
-    {body}: Request<Record<string, unknown>, Record<string, unknown>, CreateUserDto>,
+    { body }: Request<Record<string, unknown>, Record<string, unknown>, CreateUserDto>,
     res: Response,
   ): Promise<void> {
     const existsUser = await this.userService.findByEmail(body.email);
@@ -115,14 +115,14 @@ export default class UserController extends Controller {
 
 
   public async uploadAvatar(req: Request, res: Response) {
-    const {userId} = req.params;
-    const uploadFile = {avatarPath: req.file?.filename};
+    const { userId } = req.params;
+    const uploadFile = { avatarPath: req.file?.filename };
     await this.userService.updateById(userId, uploadFile);
     this.created(res, fillDTO(UploadUserAvatarRdo, uploadFile));
   }
 
   public async checkAuthenticate(req: Request, res: Response) {
-    if (! req.user) {
+    if (!req.user) {
       throw new HttpError(
         StatusCodes.UNAUTHORIZED,
         'Unauthorized',

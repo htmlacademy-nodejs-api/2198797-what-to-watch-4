@@ -15,7 +15,7 @@ export default class MongoClientService implements DatabaseClientInterface {
 
   constructor(
     @inject(AppComponent.LoggerInterface) private readonly logger: LoggerInterface
-  ) {}
+  ) { }
 
 
   private async _connectWithRetry(uri: string): Promise<Mongoose> {
@@ -34,7 +34,7 @@ export default class MongoClientService implements DatabaseClientInterface {
     throw new Error('Failed to connect to the database');
   }
 
-  private async _connect(uri:string): Promise<void> {
+  private async _connect(uri: string): Promise<void> {
     this.mongooseInstance = await this._connectWithRetry(uri);
     this.isConnected = true;
   }
