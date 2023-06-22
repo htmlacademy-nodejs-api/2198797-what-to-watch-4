@@ -1,0 +1,505 @@
+openapi: 3.1.0
+info:
+  title: API сервер для демо-проекта «Куплю. Продам».
+  description: |-
+    * Список ресурсов и маршрутов сервера «Куплю. Продам».
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  version: 2.0.0
+tags:
+  - name: movies
+    description: Действия с фильмами.
+  - name: comments
+    description: Действия с комментариями.
+  - name: users
+    description: Действия с пользователем.
+
+paths:
+  /movies/?limit=:
+    get:
+      tags:
+        - movies
+      summary: Получить список фильмов. 
+      description: Возвращает массив фильмов из базы. Количество возвращаемых фильмов задается в параметре limit. По умолчанию 60 фильмов. 
+      responses:
+        "200":
+          description: Массив фильмов.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/movies'
+
+        "404":
+          description: Фильм не найден.
+
+  /movies/{genre}/?limit=:
+    get:
+      tags:
+        - movies
+      summary: Получить список фильмов определенного жанра. 
+      description: Возвращает массив фильмов определенного жанра. Жанр возвращаемых фильмов указан в параметре genre.Количество возвращаемых фильмов задается в параметре limit. По умолчанию 60 фильмов. 
+      responses:
+        "200":
+          description: Массив фильмов.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/movies'
+
+        "404":
+          description: Фильм не найден.
+
+  /movies:
+    post:
+      tags:
+        - movies
+      summary: Добавление нового фильма.
+      description: Добавление карточки нового фильма.
+      requestBody:
+        description: Информация для добавления нового фильма.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/moviePush'
+        required: true
+      responses:
+        "200":
+          description: Обновленный объект фильма.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moviePull'
+
+  /movies/{movieId}:
+    get:
+      tags:
+        - movies
+      summary: Получить фильм.
+      description: Возвращает детальной информации по фильму с идентификатором movieId.
+
+      responses:
+        "200":
+          description: Объект фильма.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moviePull'
+
+        "404":
+          description: Фильм не найден.
+
+    patch:
+      tags:
+        - movies
+      summary: Редактирование карточки фильма.
+      description: Редактирование карточки фильма с индетификатором movieId. Клиет может редактировать карточки фильма которые создал он.
+      requestBody:
+        description: Информация для редактирования фильма.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/moviePush'
+        required: true
+      responses:
+        "201":
+          description: Обновленный объект фильма.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moviePull'
+        "404":
+          description: Фильм не найден.
+
+    delete:
+      tags:
+        - movies
+      summary: Удаление карточки фильма.
+      description: Удаление карточки фильма с идентификатором movieId.
+      responses:
+        "200":
+          description: Фильм удален.
+        "403":
+          description: Доступ запрещен.
+        "404":
+          description: Фильм не найден.
+
+
+  /movies/promo/get:
+    get:
+      tags:
+        - movies
+      summary: Получить промо-фильм.
+      description: Получение детальной информации по промо-фильму.
+      responses:
+        "200":
+          description: Обновленный объект фильма.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/moviePull'
+
+  /movies/favorit/get:
+    get:
+      tags:
+        - movies
+      summary: Получить список фильмов «К просмотру».
+      description: Возвращает массив фильмов, добавленных в список «к просмотру»
+
+  /movies/favorite/{movieId}/{status}:
+    post:
+      tags:
+        - movies
+      summary: Изменить статус «к просмотру» у фильма.
+      description: Изменяет статус «к просмотру». Возвращает фильм с идентификатором movieId с актуальным состоянием. Статус 0 - удалить из списка, 1 - добавить в список.
+       
+
+
+  /comments/{movieId}:
+    get:
+      tags:
+        - comments
+      summary: Получить список комментариев.
+      description: Возвращает массив комментариев для фильма с идентификатором movieId.
+      responses:
+        "201":
+          description: Массив комментариев.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/comments'
+        "404":
+          description: Фильм не найден.
+    
+    post:
+      tags:
+        - comments
+      summary: Добавить новый комментарий
+      description: Добавляет новый комментарий для фильма с идентификатором movieId.
+      requestBody:
+        description: Новый комментарий.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/comment'
+        required: true
+      responses:
+        "200":
+          description: Новый объект комментария.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/comments'
+        "404":
+          description: Фильм не найден.
+
+
+
+  /users/register:
+    post:
+      tags:
+        - users
+      summary: Регистрация пользователя
+      description: Регистрирует нового пользователя.
+
+      requestBody:
+        description: Информация для создания нового пользователя.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createUser'
+        required: true
+
+      responses:
+        "200":
+          description: Пользователь зарегистрирован. Объект пользователя.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+
+        "409":
+          description: Пользователь с таким email уже существует.
+
+
+
+
+  /users/login:
+    post:
+      tags:
+        - users
+      summary: Авторизация пользователя
+      description: Авторизует пользователя на основе логина и пароля
+
+    get:
+      tags:
+        - users
+      summary: Проверка состояния пользователя
+      description: Возвращает информацию по авторизованному пользователю
+
+  /users/{userId}/avatar:
+    post:
+      tags:
+        - users
+      summary: Загрузить изображение аватара
+      description: Загружает изображение аватара пользователя. Изображение
+        аватара должно быть в формате `png` или `jpg`.
+      
+
+components:
+  schemas:
+    createUser:
+      type: object
+      properties:
+        email:
+          type: string
+          example: jacksmith@gmail.ru
+        firstName:
+          type: string
+          example: Jack
+        lastName:
+          type: string
+          example: Smith
+        password:
+          type: string
+          example: 123456
+
+    user:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 6329c3d6a04ab1061c6425ea
+        email:
+          type: string
+          example: jacksmith@gmail.ru
+
+    movies:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: number
+            example: 1
+          name:
+            type: string
+            example: "The Grand Budapest Hotel"
+          released:
+            type: number
+            example: 1981
+          genre:
+            type: array
+            items:
+              type: string
+            example: ["comedy", "family", "crime"]
+          previewVideoLink:
+            type: string
+            example: "https://some-link"
+          posterImage:
+            type: string
+            example: "img/the-grand-budapest-hotel.jpg"
+          commentsCount:
+            type: number
+            example: 40
+          user: 
+            type: object
+            properties:
+              id:
+                type: string
+                example: 6329c3d6a04ab1061c6425ea
+              email: 
+                type: string
+                example: "keanu@gmail.com"
+              firstName:
+                type: string
+                example: "Jack"
+              lastName:
+                type: string
+                example: "Jones"
+              avatarPath:
+                type: string
+                example: "http://localhost:5010/static/default-avatar.jpg"
+
+        
+
+    moviePull:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 6489d2a808d48dc51c2dd55
+        name:
+          type: string
+          example: "The Grand Budapest Hotel"
+        description:
+          type: string
+          example: "In the 1930s the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege."
+        premiereDate:
+          type: string
+          example: "2023-06-13T21:00:00.000Z"
+        genre:
+          type: array
+          items:
+            type: string
+          example: ["comedy", "family", "crime"]
+        released:
+          type: number
+          example: 1981
+        rating:
+          type: number
+          example: 9.1
+        previewVideoLink:
+          type: string
+          example: "https://some-link"
+        videoLink:
+          type: string
+          example: "https://some-link"
+        starring:
+          type: array
+          items:
+            type: string
+          example: ["LeBron James", "Bill Murray"]
+        director:
+          type: string
+          example: "Wes Anderson"
+        runTime:
+          type: number
+          example: 90
+        posterImage:
+          type: string
+          example: "img/the-grand-budapest-hotel.jpg"
+        backgroundImage:
+          type: string
+          example: "img/the-grand-budapest-hotel-poster.jpg"
+        backgroundColor:
+          type: string
+          example: "#ffffff"
+        commentsCount:
+          type: number
+          example: 40
+        user: 
+            type: object
+            properties:
+              id:
+                type: string
+                example: 6329c3d6a04ab1061c6425ea
+              email: 
+                type: string
+                example: "keanu@gmail.com"
+              firstName:
+                type: string
+                example: "Jack"
+              lastName:
+                type: string
+                example: "Jones"
+              avatarPath:
+                type: string
+                example: "http://localhost:5010/static/default-avatar.jpg"
+
+    moviePush:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "The Grand Budapest Hotel"
+        description:
+          type: string
+          example: "In the 1930s the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege."
+        premiereDate:
+          type: string
+          example: "2023-06-13T21:00:00.000Z"
+        genre:
+          type: array
+          items:
+            type: string
+          example: ["comedy", "family", "crime"]
+        released:
+          type: number
+          example: 1981
+        rating:
+          type: number
+          example: 9.1
+        previewVideoLink:
+          type: string
+          example: "https://some-link"
+        videoLink:
+          type: string
+          example: "https://some-link"
+        starring:
+          type: array
+          items:
+            type: string
+          example: ["LeBron James", "Bill Murray"]
+        director:
+          type: string
+          example: "Wes Anderson"
+        runTime:
+          type: number
+          example: 90
+        posterImage:
+          type: string
+          example: "img/the-grand-budapest-hotel.jpg"
+        backgroundImage:
+          type: string
+          example: "img/the-grand-budapest-hotel-poster.jpg"
+        backgroundColor:
+          type: string
+          example: "#ffffff"
+
+
+    comments: 
+      type: array
+      items:
+        type: object
+        properties:
+          comment:
+            type: string
+            example: "The best movie!!!"
+          date:
+            type: string
+            example: "2023-06-13T21:00:00.000Z"
+          id:
+            type: string
+            example: 6329c3d6a04ab1071c642511
+          rating:
+            type: number
+            example: 9.9
+          user: 
+            type: object
+            properties:
+              id:
+                type: string
+                example: 6329c3d6a04ab1061c6425ea
+              email: 
+                type: string
+                example: "keanu@gmail.com"
+              firstName:
+                type: string
+                example: "Jack"
+              lastName:
+                type: string
+                example: "Jones"
+              avatarPath:
+                type: string
+                example: "http://localhost:5010/static/default-avatar.jpg"
+
+
+    comment:
+      type: object
+      properties:
+        comment:
+          type: string
+          example: "The best movie!!!"
+        rating:
+          type: number
+          example: 8
+
+
+
+
+
+
+    
+
+

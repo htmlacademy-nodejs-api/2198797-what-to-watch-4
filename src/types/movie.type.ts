@@ -4,7 +4,7 @@ export type Movie = {
     name: string;
     description: string;
     premiereDate: Date;
-    genre: string;
+    genre: string[];
     released: number;
     rating: number;
     previewVideoLink: string;
@@ -14,6 +14,6 @@ export type Movie = {
     runTime: number;
     posterImage: string;
     backgroundImage: string;
-    backgroundColor: number;
+    backgroundColor: string;
     user: User;
 }

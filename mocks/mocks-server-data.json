@@ -20,19 +20,18 @@
         "A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers."
       ],
       "genres": [
-        "Comedy",
-        "Crime",
-        "Adventure",
-        "Action",
-        "Drama"
+        "comedy",
+        "crime",
+        "adventure",
+        "action",
+        "drama",
+        "family"
       ],
       "previewVideoLinks": [
-        "https://12.react.pages.academy/static/film/video/dog.mp4",
-        "https://12.react.pages.academy/static/film/video/traffic.mp4"
+        "http://somelink.com"
       ],
       "videoLinks": [
-        "https://12.react.pages.academy/static/film/video/bubbles.mp4'",
-        "https://12.react.pages.academy/static/film/video/matrix.mp4"
+        "http://somelink.com"
       ],
       "actors": [
         "Kayvan Novak",
@@ -78,24 +77,8 @@
         "keanu@gmail.com"
       ],
       "posterImages":[
-        "https://12.react.pages.academy/static/film/poster/What-We-Do-in-the-Shadows.jpg",
-        "https://12.react.pages.academy/static/film/poster/Legend.jpg",
-        "https://12.react.pages.academy/static/film/poster/Dardjeeling_Limited.jpg",
-        "https://12.react.pages.academy/static/film/poster/No_Country_for_Old_Men.jpg",
-        "https://12.react.pages.academy/static/film/poster/Gangs_of_New_York_Poster.jpg",
-        "https://12.react.pages.academy/static/film/poster/Once_Upon_a_Time_in_America.jpg",
-        "https://12.react.pages.academy/static/film/poster/matrix.jpg",
-        "https://12.react.pages.academy/static/film/poster/Bohemian_Rhapsody.jpg"
       ],
       "backgroundImages":[
-        "https://12.react.pages.academy/static/film/background/What-We-Do-in-the-Shadows.jpg",
-        "https://12.react.pages.academy/static/film/background/legend.jpg",
-        "https://12.react.pages.academy/static/film/background/Dardjeeling_Limited.jpg",
-        "https://12.react.pages.academy/static/film/background/No_Country_for_Old_Men.jpg",
-        "https://12.react.pages.academy/static/film/background/gangs_of_new_york.jpg",
-        "https://12.react.pages.academy/static/film/background/ones_upon_a_time_in_america.jpg",
-        "https://12.react.pages.academy/static/film/background/matrix.jpg",
-        "https://12.react.pages.academy/static/film/background/Bohemian_Rhapsody.jpg"
       ]
     }
   }
