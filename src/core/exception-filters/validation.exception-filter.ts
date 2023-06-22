@@ -17,7 +17,7 @@ export default class ValidationExceptionFilter implements ExceptionFilterInterfa
   }
 
   public catch(error: unknown, _req: Request, res: Response, next: NextFunction): void {
-    if (! (error instanceof ValidationError)) {
+    if (!(error instanceof ValidationError)) {
       return next(error);
     }
 

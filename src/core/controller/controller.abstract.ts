@@ -8,7 +8,7 @@ import asyncHandler from 'express-async-handler';
 import { ConfigInterface } from '../config/config.interface.js';
 import { RestSchema } from '../config/rest.schema.js';
 import { UnknownRecord } from '../../types/unknown-record.type.js';
-import { getFullServerPath, transformObject} from '../helpers/common.js';
+import { getFullServerPath, transformObject } from '../helpers/common.js';
 import { STATIC_RESOURCE_FIELDS } from '../../app/rest.constatnt.js';
 
 @injectable()

@@ -6,6 +6,6 @@ export const Genre = {
   FAMILY: 'family',
   HORROR: 'horror',
   ROMANCE: 'romance',
-  SCIFI:'scifi',
+  SCIFI: 'scifi',
   THRILLER: 'thriller'
 } as const;

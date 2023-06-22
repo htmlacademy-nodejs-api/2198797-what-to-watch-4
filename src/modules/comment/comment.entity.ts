@@ -1,10 +1,9 @@
-import typegoose, { defaultClasses, getModelForClass, Ref } from '@typegoose/typegoose';
+import { defaultClasses, getModelForClass, Ref, prop, modelOptions } from '@typegoose/typegoose';
 import { MovieEntity } from '../movie/movie.entity.js';
 import { UserEntity } from '../user/user.entity.js';
 
-const { prop, modelOptions } = typegoose;
 
-export interface CommentEntity extends defaultClasses.Base {}
+export interface CommentEntity extends defaultClasses.Base { }
 
 
 @modelOptions({
@@ -12,11 +11,11 @@ export interface CommentEntity extends defaultClasses.Base {}
     collection: 'comments'
   }
 })
-export class CommentEntity extends defaultClasses.TimeStamps{
-  @prop({trim: true, required: true})
+export class CommentEntity extends defaultClasses.TimeStamps {
+  @prop({ trim: true, required: true })
   public comment!: string;
 
-  @prop({trim: true, required: true})
+  @prop({ required: true })
   public rating!: number;
 
   @prop({

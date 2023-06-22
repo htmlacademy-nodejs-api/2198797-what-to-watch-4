@@ -3,9 +3,9 @@ import { MovieGeneratorInterface } from './movie-generator/movie-generator.inter
 import { MockData } from '../types/mock-data.type';
 import { generateRandomValue, getRandomItem, getRandomItems } from '../core/helpers/index.js';
 
-export default class MovieGenerator implements MovieGeneratorInterface{
+export default class MovieGenerator implements MovieGeneratorInterface {
 
-  constructor(private readonly mockData: MockData) {}
+  constructor(private readonly mockData: MockData) { }
 
   public generate(): string {
     const name = getRandomItem<string>(this.mockData.names);

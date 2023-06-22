@@ -30,7 +30,7 @@ export default class RestApplication {
     this.expressApplication = express();
   }
 
-  private async _initDb(){
+  private async _initDb() {
     this.logger.info('Init database…');
 
     const mongoUri = getMongoURI(

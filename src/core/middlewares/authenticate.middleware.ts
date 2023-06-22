@@ -7,9 +7,9 @@ import HttpError from '../errors/http-error.js';
 
 
 export class AuthenticateMiddleware implements MiddlewareInterface {
-  constructor(private readonly jwtSecret: string) {}
+  constructor(private readonly jwtSecret: string) { }
 
-  public async execute(req: Request, _res: Response, next: NextFunction): Promise<void>{
+  public async execute(req: Request, _res: Response, next: NextFunction): Promise<void> {
     const authorizationHeader = req.headers?.authorization?.split(' ');
     if (!authorizationHeader) {
       return next();

@@ -1,6 +1,6 @@
-import {Request, Response} from 'express';
-import {inject} from 'inversify';
-import {StatusCodes} from 'http-status-codes';
+import { Request, Response } from 'express';
+import { inject } from 'inversify';
+import { StatusCodes } from 'http-status-codes';
 import { Controller } from '../../core/controller/controller.abstract.js';
 import { LoggerInterface } from '../../core/logger/logger.interface';
 import { CommentServiceInterface } from './comment-service.interface';
@@ -18,12 +18,12 @@ import { RestSchema } from '../../core/config/rest.schema.js';
 import { ValidateObjectIdMiddleware } from '../../core/middlewares/validate-objectid.middleware.js';
 import { DocumentExistsMiddleware } from '../../core/middlewares/document-exists.middleware.js';
 
-export default class CommentController extends Controller{
+export default class CommentController extends Controller {
   constructor(
-        @inject(AppComponent.LoggerInterface) logger: LoggerInterface,
-        @inject(AppComponent.CommentServiceInterface) private readonly commentService: CommentServiceInterface,
-        @inject(AppComponent.MovieServiceInterface) private readonly movieService: MovieServiceInterface,
-        @inject(AppComponent.ConfigInterface) configService: ConfigInterface<RestSchema>,
+    @inject(AppComponent.LoggerInterface) logger: LoggerInterface,
+    @inject(AppComponent.CommentServiceInterface) private readonly commentService: CommentServiceInterface,
+    @inject(AppComponent.MovieServiceInterface) private readonly movieService: MovieServiceInterface,
+    @inject(AppComponent.ConfigInterface) configService: ConfigInterface<RestSchema>,
   ) {
     super(logger, configService);
 
@@ -35,7 +35,8 @@ export default class CommentController extends Controller{
       middlewares: [
         new PrivateRouteMiddleware(),
         new ValidateDtoMiddleware(CreateCommentDto),
-      ]});
+      ]
+    });
 
     this.addRoute({
       path: '/:movieId',
@@ -49,7 +50,7 @@ export default class CommentController extends Controller{
   }
 
   public async create(
-    {body, user}: Request<object, object, CreateCommentDto>,
+    { body, user }: Request<object, object, CreateCommentDto>,
     res: Response
   ): Promise<void> {
 
@@ -67,7 +68,7 @@ export default class CommentController extends Controller{
   }
 
 
-  public async getComments({params}: Request,res: Response): Promise<void> {
+  public async getComments({ params }: Request, res: Response): Promise<void> {
     const comments = await this.commentService.findByMovieId(params.movieId);
     this.ok(res, fillDTO(CommentRdo, comments));
   }

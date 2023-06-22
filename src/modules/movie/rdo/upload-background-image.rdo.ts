@@ -1,6 +1,6 @@
 import { Expose } from 'class-transformer';
 
 export default class UploadBackgroundImageRdo {
-    @Expose()
+  @Expose()
   public backgroundImage!: string;
 }

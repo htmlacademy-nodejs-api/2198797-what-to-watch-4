@@ -8,7 +8,7 @@ export default class GenerateCommand implements CliCommandInterface {
   public readonly name = '--generate';
   private initialData!: MockData;
 
-  public async execute(...parameters:string[]): Promise<void> {
+  public async execute(...parameters: string[]): Promise<void> {
     const [count, filepath, url] = parameters;
     const movieCount = Number.parseInt(count, 10);
 

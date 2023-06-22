@@ -37,7 +37,7 @@ export async function createJWT(algorithm: string, jwtSecret: string, payload: o
 }
 
 export function transformErrors(errors: ValidationError[]): ValidationErrorField[] {
-  return errors.map(({property, value, constraints}) => ({
+  return errors.map(({ property, value, constraints }) => ({
     property,
     value,
     messages: constraints ? Object.values(constraints) : []
@@ -69,7 +69,7 @@ export function transformProperty(
     });
 }
 
-export function transformObject(properties: string[], staticPath: string, uploadPath: string, data:UnknownRecord) {
+export function transformObject(properties: string[], staticPath: string, uploadPath: string, data: UnknownRecord) {
   return properties
     .forEach((property) => {
       transformProperty(property, data, (target: UnknownRecord) => {
